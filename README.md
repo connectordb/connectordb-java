@@ -7,3 +7,20 @@
 The client is compatible with both standard java and android. The client is used in the ConnectorDB android app to communicate with the database.
 
 It is currently a very bare-bones client, and will be developed further subject to interest and/or needs of the android app.
+
+## Testing
+
+To test, you need to run ConnectorDB in test configuration:
+
+```bash
+connectordb create testdb --test
+connectordb start testdb
+connectordb run testdb
+```
+
+Once ConnectorDB is running, you can run tests:
+
+```bash
+gradle assemble
+gradle check
+```
