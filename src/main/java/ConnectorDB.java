@@ -46,9 +46,9 @@ public class ConnectorDB {
         return url.newBuilder().addPathSegment("crud");
     }
 
-    private void throwFailure(Response response) throws RequestFailedException {
+    private void throwFailure(Response response) throws IOException, RequestFailedException {
         if (!response.isSuccessful()) {
-            throw new RequestFailedException(gson.fromJson(response.body().charStream(),ErrorResponse.class));
+            throw new RequestFailedException(gson.fromJson(response.body().string(),ErrorResponse.class));
         }
     }
 
@@ -109,7 +109,7 @@ public class ConnectorDB {
     public User getUser(String name) throws Exception,RequestFailedException {
         Response response = simpleGet(name);
 
-        return gson.fromJson(response.body().charStream(),User.class);
+        return gson.fromJson(response.body().string(),User.class);
     }
     public Device getDevice(String path) throws Exception,RequestFailedException {
         Response response = simpleGet(path);
@@ -119,33 +119,33 @@ public class ConnectorDB {
     public Stream getStream(String path) throws Exception,RequestFailedException {
         Response response = simpleGet(path);
 
-        return gson.fromJson(response.body().charStream(),Stream.class);
+        return gson.fromJson(response.body().string(),Stream.class);
     }
 
     public User createUser(String name,User usr)  throws Exception,RequestFailedException {
         Response response = simplePost(name,gson.toJson(usr.updates));
-        return gson.fromJson(response.body().charStream(),User.class);
+        return gson.fromJson(response.body().string(),User.class);
     }
     public Device createDevice(String path, Device device)  throws Exception,RequestFailedException {
         Response response = simplePost(path,gson.toJson(device.updates));
-        return gson.fromJson(response.body().charStream(),Device.class);
+        return gson.fromJson(response.body().string(),Device.class);
     }
     public Stream createStream(String path, Stream stream)  throws Exception,RequestFailedException {
         Response response = simplePost(path,gson.toJson(stream.updates));
-        return gson.fromJson(response.body().charStream(),Stream.class);
+        return gson.fromJson(response.body().string(),Stream.class);
     }
 
     public User updateUser(String name,User usr)  throws Exception,RequestFailedException {
         Response response = simplePut(name,gson.toJson(usr.updates));
-        return gson.fromJson(response.body().charStream(),User.class);
+        return gson.fromJson(response.body().string(),User.class);
     }
     public Device updateDevice(String path, Device device)  throws Exception,RequestFailedException {
         Response response = simplePut(path,gson.toJson(device.updates));
-        return gson.fromJson(response.body().charStream(),Device.class);
+        return gson.fromJson(response.body().string(),Device.class);
     }
     public Stream updateStream(String path, Stream stream)  throws Exception,RequestFailedException {
         Response response = simplePut(path,gson.toJson(stream.updates));
-        return gson.fromJson(response.body().charStream(),Stream.class);
+        return gson.fromJson(response.body().string(),Stream.class);
     }
 
     public void deleteUser(String name)  throws Exception,RequestFailedException {
