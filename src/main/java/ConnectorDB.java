@@ -157,4 +157,10 @@ public class ConnectorDB {
     public void deleteStream(String name)  throws Exception,RequestFailedException {
         simpleDelete(name);
     }
+
+    // insertJson is a temporary measure to allow inserting from the android app.
+    // The java library is DEFINITELY not finished yet....
+    public void insertJson(String name,String datapointarrayjsonstring) throws Exception,RequestFailedException {
+        simplePut(name+"/data",datapointarrayjsonstring);
+    }
 }

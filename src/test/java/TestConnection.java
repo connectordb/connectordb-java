@@ -1,14 +1,12 @@
 package com.connectordb.test;
 
-import static org.junit.Assert.assertEquals;
-
-import org.junit.Test;
-
 import com.connectordb.client.ConnectorDB;
-import com.connectordb.client.User;
 import com.connectordb.client.Device;
-import com.connectordb.client.Stream;
 import com.connectordb.client.RequestFailedException;
+import com.connectordb.client.Stream;
+import com.connectordb.client.User;
+import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 public class TestConnection {
 
@@ -123,5 +121,15 @@ public class TestConnection {
         }
         assertEquals(exists,false);
 
+    }
+
+    @Test
+    public void TestInsert() throws Exception {
+        String sname = "test/user/javastream";
+        Stream s = new Stream();
+        s.setSchema("{\"type\":\"string\"}");
+        cdb.createStream(sname,s);
+        cdb.insertJson(sname,"[{\"t\":123456,\"d\":\"Hello World!\"}]");
+        cdb.deleteStream(sname);
     }
 }
