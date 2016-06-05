@@ -2,13 +2,13 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import com.connectordb.client.Connection;
+import com.connectordb.client.ConnectorDB;
 
 public class TestConnection {
-	Connection conn = new Connection("https://connectordb.com");
+	ConnectorDB cdb= new ConnectorDB("test","test","http://localhost:8000");
 
 	@Test
-	public void TestHello() {
-		assertEquals(conn.Hello(),"Hello World!");
+	public void TestPing() throws Exception {
+		assertEquals(cdb.ping(),"test/user");
 	}
 }
