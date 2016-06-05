@@ -12,5 +12,7 @@ repositories {
 
 dependencies {
     compile 'com.squareup.okhttp3:okhttp:3.3.1'
+    // http://mvnrepository.com/artifact/com.google.code.gson/gson
+    compile group: 'com.google.code.gson', name: 'gson', version: '1.7.2'
     testCompile 'junit:junit:4.12'
 }

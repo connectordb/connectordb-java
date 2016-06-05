@@ -16,8 +16,8 @@ class BasicAuthInterceptor implements Interceptor {
     private String password;
 
     BasicAuthInterceptor(String username, String password) {
-      this.username = username;
-      this.password = password;
+        this.username = username;
+        this.password = password;
     }
 
     @Override
@@ -28,8 +28,8 @@ class BasicAuthInterceptor implements Interceptor {
         if (request.header("Authorization") == null) {
             String credentials = Credentials.basic(username, password);
             request = request.newBuilder()
-                    .addHeader("Authorization", credentials)
-                    .build();
+                      .addHeader("Authorization", credentials)
+                      .build();
         }
         return chain.proceed(request);
     }
