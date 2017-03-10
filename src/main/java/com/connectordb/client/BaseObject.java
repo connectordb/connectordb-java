@@ -1,9 +1,7 @@
 package com.connectordb.client;
 
-import java.util.Map;
 import java.util.HashMap;
-
-import com.google.gson.annotations.SerializedName;
+import java.util.Map;
 
 public class BaseObject {
     protected String name;
