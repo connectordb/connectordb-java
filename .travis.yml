@@ -1,11 +1,14 @@
 language: java
 
 install:
-    - wget -O cdb.tar.gz https://github.com/connectordb/connectordb/releases/download/v0.3.0a1/connectordb0.3.0a1.tar.gz
-    - tar xvzf cdb.tar.gz
+    - wget -O cdb.tar.gz https://connectordb.io/download/connectordb_server_current_linux_amd64.tar.gz
+    - mkdir bin
+    - tar xvzf cdb.tar.gz --strip 1 -C ./bin
     - export PATH=$TRAVIS_BUILD_DIR/bin:$PATH
 
 before_script:
     - connectordb create testdb --test
-    - connectordb start testdb
-    - connectordb -l=ERROR run testdb &
+    - connectordb start testdb -l=ERROR
+
+after_success:
+    - connectordb stop testdb
