@@ -28,7 +28,7 @@ public class ConnectorDB {
 
     public ConnectorDB(String username, String password, String url) {
         // https://corner.squareup.com/2015/05/okhttp-2-4.html
-        this.url = HttpUrl.parse(url).newBuilder().addPathSegment("api/v1").build();
+        this.url = HttpUrl.parse(url).newBuilder().addPathSegments("api/v1").build();
 
         // https://stackoverflow.com/questions/22490057/android-okhttp-with-basic-authentication
         client = new OkHttpClient.Builder().addInterceptor(new BasicAuthInterceptor(username, password))
@@ -65,7 +65,7 @@ public class ConnectorDB {
     }
 
     private Response simplePost(String path, String data) throws Exception, RequestFailedException {
-        Request request = new Request.Builder().url(crudUrl().addPathSegment(path).build())
+        Request request = new Request.Builder().url(crudUrl().addPathSegments(path).build())
                 .post(RequestBody.create(JSON, data)).build();
 
         Response response = client.newCall(request).execute();
@@ -74,7 +74,7 @@ public class ConnectorDB {
     }
 
     private Response simplePut(String path, String data) throws Exception, RequestFailedException {
-        Request request = new Request.Builder().url(crudUrl().addPathSegment(path).build())
+        Request request = new Request.Builder().url(crudUrl().addPathSegments(path).build())
                 .put(RequestBody.create(JSON, data)).build();
 
         Response response = client.newCall(request).execute();
@@ -83,7 +83,7 @@ public class ConnectorDB {
     }
 
     private Response simpleDelete(String path) throws Exception, RequestFailedException {
-        Request request = new Request.Builder().url(crudUrl().addPathSegment(path).build()).delete().build();
+        Request request = new Request.Builder().url(crudUrl().addPathSegments(path).build()).delete().build();
 
         Response response = client.newCall(request).execute();
         throwFailure(response);
@@ -104,13 +104,13 @@ public class ConnectorDB {
     }
 
     public Device getDevice(String path) throws Exception, RequestFailedException {
-        Response response = simpleGet(crudUrl().addPathSegment(path).build());
+        Response response = simpleGet(crudUrl().addPathSegments(path).build());
 
         return gson.fromJson(str(response), Device.class);
     }
 
     public Stream getStream(String path) throws Exception, RequestFailedException {
-        Response response = simpleGet(crudUrl().addPathSegment(path).build());
+        Response response = simpleGet(crudUrl().addPathSegments(path).build());
 
         return gson.fromJson(str(response), Stream.class);
     }
@@ -164,7 +164,7 @@ public class ConnectorDB {
     }
 
     public double getMostRecentTimestamp(String path) throws Exception, RequestFailedException {
-        Response response = simpleGet(crudUrl().addPathSegment(path + "/data").addQueryParameter("i1", "-1").build());
+        Response response = simpleGet(crudUrl().addPathSegments(path + "/data").addQueryParameter("i1", "-1").build());
 
         Datapoint[] dp = gson.fromJson(str(response), Datapoint[].class);
         if (dp.length != 1)
